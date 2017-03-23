@@ -2,7 +2,7 @@
 
 本文用于全书的勘误。请各位大侠留下您的意见。本文可兼容LaTeX语法。
 
- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"type="text/javascript"></script>
+ <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
  
  
 * 前言, 第一段, 第3行: "硬邦邦冷、冰冰"，改为“硬邦邦、冷冰冰”。
