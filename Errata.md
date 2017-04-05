@@ -44,5 +44,8 @@
      * 改为: $E(X^2)  = \int_{-\infty}^{\infty} x^2 f(x) dx =\int_{-\infty}^{0} x^2 \frac{ e ^x}{2} dx + \int_{1}^{\infty} x^2 \left[ \frac 1 4 \me^{-\frac{1}{2}(x-1)}\right] dx
   * 43页, 第2, 3行的计算中下标应为$k$而不是$i$.
      
-     
+  
+感谢侯茶燕, 王凌云, XXX(名单实时更新中)的悉心指正.
+
+
 欢迎补充更新。
