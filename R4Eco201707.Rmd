@@ -1,0 +1,557 @@
+---
+title: "R语言在经济学中的应用"
+subtitle: ""
+author: "南开大学周恩来政府管理学院  吕小康"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: zh-CN.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+---
+
+# R简介
+
+### R是一个免费自由且跨平台通用的统计计算与绘图软件。
+  
+- 它有Windows、Mac、Linux等版本，均可免费下载使用。
+
+### 从[R主页](https://www.r-project.org/)中选择[download R](https://cran.r-project.org/mirrors.html)链接可下载到对应操作系统的R安装程序。
+
+- 打开链接后的网页会提示选择相应的[CRAN](https://cran.r-project.org/mirrors.html)镜像站。目前全球有超过一百个CRAN镜像站 ，用户可选择就近下载。
+
+---
+
+# R与STATA等统计软件的区别
+
+### R为开源免费的软件，其他基本为商业付费软件。
+
+- 如果你有钱，可以只选贵的、不选对的；但如果你没钱……
+
+###  R是一种脚本语言，强调英文命令操作。
+
+- R的学习比较费时、对汉字编码不友好，但掌握之后的自由性更强
+
+### R在数据可视化上的表现更佳，选择更丰富。
+
+- R的统计绘图是它最有标志性的功能，可以制作达到出版的各种图形
+
+---
+
+# R在经济学中的综合应用
+
+R及与之相关的配套开源软件（如RStudio）已构成一个丰富的数据分析网络生态，具有同类软件很难同时满足的多种可能性。
+
+### 用于课程教学
+
+### 用于数据获取与预处理
+
+### 用于数据建模
+
+### 用于数据可视化
+
+### 用于撰写学术报告
+
+……
+
+---
+
+# 作为课堂教学的辅助软件
+
+可以作为两门经济学基础课程的教学辅助软件
+
+- 《概率论与数理统计》
+- 《计量经济学》
+
+我本人在清华大学出版社2017年出版的[《R语言统计学基础》](https://www.amazon.cn/%E6%95%B0%E9%87%8F%E7%BB%8F%E6%B5%8E%E5%AD%A6%E7%B3%BB%E5%88%97%E4%B8%9B%E4%B9%A6-R%E8%AF%AD%E8%A8%80%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E7%A1%80-%E5%90%95%E5%B0%8F%E5%BA%B7/dp/B06XGR6LJZ/ref=sr_1_1?ie=UTF8&qid=1490843285&sr=8-1&keywords=%E5%90%95%E5%B0%8F%E5%BA%B7)，内容差不多覆盖经济学类入门概率论与数理统计的教学要求，全程使用R作为分析和绘画软件。
+
+![](https://images-cn.ssl-images-amazon.com/images/I/61wcEf4ElmL.jpg)
+
+
+---
+
+# 作为课堂教学的辅助软件
+
+这里使用一个经常在计量经济学中使用到的数据（`Affairs`）进行示例。这是美国 *Psychology Today* 杂志于1969年采集的关于婚外情的数据。该数据经常用于广义线性模型的示例。
+
+```{r, message=FALSE}
+if(!require(AER)) install.packages("AER")
+data("Affairs")
+head(Affairs)
+```
+
+---
+
+## OLS回归
+
+```{r}
+fm_ols <- lm(affairs ~ age + yearsmarried + religiousness + occupation + rating,
+data = Affairs)
+summary(fm_ols)
+```
+
+---
+
+## OLS 回归
+
+### 查看模型拟合值
+
+```{r}
+fit <- fitted(fm_ols)
+head(fit)
+```
+
+### 查看模型残差
+
+```{r}
+re <- residuals(fm_ols)
+head(re)
+```
+
+---
+
+查看用于模型诊断的相关图示
+
+```{r, fig.align='center'}
+opar <- par(no.readonly = T)
+par(mfrow = c(2, 2))
+plot(fm_ols)
+par(opar)
+```
+
+---
+
+# 广义线性模型
+
+广义线性模型（Generalized Linear Models）的一般形式：
+
+$$f(\mu_Y)=\beta _0 + \beta _1 X_1 + \beta _2 X_2 + \cdots + \beta _k X_k=\beta _0 + \sum ^k _{j=1} \beta _j X_j$$
+
+其中
+- $f(\mu_Y)$表示响应变量的条件均值的某种函数（称为连接函数，link function）。
+
+- 此时对 $Y$ 不再有服从正态分布的要求，而可以服从任何指数分布族中的某一分布。
+
+- 设定好连接函数与分布类型后，就可以利用极大似然法通过多次迭代推导出各参数值。
+
+---
+
+# 常用的广义线性模型
+
+- Probit/Logistic 回归模型
+- Poisson 回归模型
+- Negative Binomial 回归模型
+- Zero Inflation 回归模型
+- Tobit 回归模型
+- ……
+
+## 这些都可通过R的相关函数方便求得。
+
+---
+
+# 广义线性模型
+
+## Probit 回归
+
+```{r}
+fm_probit <- glm(I(affairs > 0) ~ age + yearsmarried + religiousness + occupation + rating,
+data = Affairs, family = binomial(link = "probit"))
+summary(fm_probit)
+```
+
+注：`I(affairs > 0)`用于生成是否有婚外情的虚拟变量，> 0 则赋值为1，否则为0。
+
+---
+
+## Probit 回归
+
+## 查看模型拟合值
+
+```{r}
+fit <- fitted(fm_probit)
+head(fit)
+```
+
+
+
+---
+
+## Logistic/Logit 回归
+
+```{r}
+fm_logit <- glm(I(affairs > 0) ~ age + yearsmarried + religiousness + occupation + rating,
+data = Affairs, family = binomial(link = "logit"))
+summary(fm_logit)
+```
+
+---
+
+## Poisson 回归
+
+```{r}
+fm_pois <- glm(affairs ~ age + yearsmarried + religiousness + occupation + rating,
+data = Affairs, family = poisson)
+summary(fm_pois)
+```
+
+
+---
+
+## Negative Binomial 回归
+
+```{r, message=FALSE}
+if(!require(MASS)) install.packages("MASS")
+fm_nb <- glm.nb(affairs ~ age + yearsmarried + religiousness + occupation + rating,
+data = Affairs)
+summary(fm_nb)
+```
+
+---
+
+## Zero Inflation 回归
+
+```{r, message=FALSE}
+if(!require(pscl)) install.packages("pscl")
+fm_zero <- zeroinfl(affairs ~ age + yearsmarried + religiousness + occupation + rating | age +
+yearsmarried + religiousness + occupation + rating, data = Affairs)
+summary(fm_zero)
+```
+
+
+---
+
+## Tobit 回归
+
+```{r, message=FALSE}
+library(AER)
+fm_tobit <- tobit(affairs ~ age + yearsmarried + religiousness + occupation + rating,
+data = Affairs)
+summary(fm_tobit)
+```
+
+---
+
+# 在数据获取、预处理和可视化中的应用
+
+- tidyverse系列数据处理包
+  - dplyr: 数据操纵
+  - tidyr: 数据操纵
+  - stringr: 文本数据操纵
+  - rvest: 在线抓取文本
+  - ……
+- 可视化系列数据处理包
+  - ggplot2
+  - ggtheme
+  - ggvis
+  - shiny
+  - wordcloud2
+  - ……
+
+---
+
+## 数据处理示例1：一手问卷调查数据
+
+[我们项目组](https://github.com/xkdog/Seminar)目前正在编制《中国医患社会心态调查问卷》，问卷已经基本完成编制并已进行预测试。对初测数据的统计分析工作正在进行。初测问卷使用问卷星填答，要求被调查者使用自身手机或在访问员的手机上完成填答。数据示例见Excel文件。
+
+以下命令可简单地统计被试的地理位置分布。
+
+```r
+library(readxl)
+library(stringr)
+library(tidyverse)
+PDSurveyBasic <- read_excel("PDSurveyBasic.xlsx")
+ip.location <- str_extract(PDSurveyBasic$ip, "(?<=\\().*(?=\\))") %>%
+  str_split("-", n = 2, simplify = TRUE) %>%
+  as_tibble %>%
+  transmute(province = .[[1]], city = .[[2]]) %>% 
+  group_by(province) %>% 
+  summarise(n=n()) %>% 
+  arrange(desc(n))
+```
+
+---
+class: center
+
+## 地理位置信息分布结果
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(readxl)
+library(stringr)
+library(tidyverse)
+PDSurveyBasic <- read_excel("PDSurveyBasic.xlsx")
+ip.location <- str_extract(PDSurveyBasic$ip, "(?<=\\().*(?=\\))") %>%
+  str_split("-", n = 2, simplify = TRUE) %>%
+  as_tibble %>%
+  transmute(province = .[[1]], city = .[[2]]) %>% 
+  group_by(province) %>% 
+  summarise(n=n()) %>% 
+  arrange(desc(n))
+ip.location
+```
+
+
+---
+
+## 数据获取与处理示例2
+
+### 政府工作报告抓取与分析
+
+传统社会科学的量化分析以对数字数据（numeric data）的量化分析为主，对文本数据（text data）的分析较少。这主要是受研究工具的局限所致。
+
+R及Python等开源软件的出现，很大程度上改变这种现状，使得文本分析成为当下社会科学研究的一大潮流。
+
+
+[中国政府网](http://www.gov.cn/guowuyuan/baogao.htm)提供了自1954年以来所有的政府工作报告全文。这里以中国政府工作报告（2017）为例做一简单的R语言示例（该示例得益于雪晴数据网陈堰平老师的讲座）。
+
+
+---
+
+## 政府工作报告的抓取与简单分析
+
+[2017政府工作报告](http://www.gov.cn/premier/2017-03/16/content_5177940.htm)
+
+
+```{r, message=FALSE, warning=FALSE}
+if (!require(rvest)) install.packages('rvest')
+if (!require(wordcloud2)) install.packages('wordcloud2')
+if (!require(jiebaR)) install.packages('jiebaR')
+if (!require(stringr)) install.packages('stringr')
+url2017 <-
+  "http://www.gov.cn/premier/2017-03/16/content_5177940.htm"
+report2017 <- read_html(url2017)
+text2017 <- report2017 %>%
+  html_nodes("p") %>%
+  html_text() %>%
+  paste(collapse = "")
+writeLines(text2017, "report2017.txt")
+library(jiebaR)
+cutter <- worker(
+  bylines = T,
+  user = "./UsrWords.txt",
+  stop_word = "./stopWords.txt",
+  output = "report2017output.txt"
+)
+report_seg_file <- cutter["./report2017.txt"]
+report_segged <-
+  readLines("./report2017output.txt", encoding = "UTF-8")
+report <- as.list(report_segged)
+doc.list <- strsplit(as.character(report), split = " ")
+term.table <- table(unlist(doc.list))
+term.table <- sort(term.table, decreasing = TRUE)
+del <- term.table < 5 | nchar(names(term.table)) < 2
+term.table <- term.table[!del]
+vocabDF <- as.data.frame(term.table)
+```
+
+---
+
+## 政府工作报告的抓取与简单分析
+
+
+```{r}
+head(vocabDF, 10)
+```
+
+
+---
+
+## 政府工作报告的抓取与简单分析
+
+```{r}
+library(wordcloud2)
+wordcloud2(vocabDF, color = "random-light", backgroundColor = "grey")
+```
+
+---
+
+如何通过循环来遍历所有年份政府工作报告的链接，留待大家作为思考题。
+
+
+提示如下：
+
+```{r}
+url <- "http://www.gov.cn/guowuyuan/baogao.htm"
+reports <- read_html(url)
+links <- reports %>%
+  html_nodes(".history_report a") %>%
+  html_attr("href") %>%
+  str_trim()
+head(links)
+```
+
+
+---
+
+## 数据获取、处理与可视化
+
+### 经济学研究的常用数据、世界银行数据可使用两个R包获取：
+
+- [WDI](https://cran.r-project.org/web/packages/WDI/index.html)
+- [wbstats](https://cran.r-project.org/web/packages/wbstats/vignettes/Using_the_wbstats_package.html)
+
+
+### 一个复制Hans Rosling的[Gapminder](https://www.gapminder.org/)软件的动态交互式气泡图
+
+- [Hans Rosling](https://www.ted.com/speakers/hans_rosling)的[TED演讲](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen)，[中文翻译版](http://open.163.com/movie/2011/12/L/6/M8H1NPQM9_M8H1USJL6.html)
+- [R中的复制](https://www.r-bloggers.com/new-r-package-to-access-world-bank-data/)
+
+---
+
+## ggplot系列图形
+
+利用ggplot2及ggthemes、ggsci等包，可便捷产生符合特定杂志风格的图形。
+
+### 常用ggplot系列可视化包
+
+- ggplot2
+- ggthemes
+- ggsci
+- ggcorrplot
+- ……
+
+---
+
+### ggplot2 原始风格
+
+```{r ggplot2 style, fig.align='center', fig.width=7, fig.height=6}
+library(ggplot2)
+ggplot(iris) + 
+  geom_boxplot(aes(x = Species, y = Sepal.Length, fill = Species))
+```
+
+---
+### *The Economist* 风格图形
+
+```{r Economist style, message=FALSE, fig.height=5, fig.width=5, fig.align='center'}
+ggplot(iris) + 
+  geom_boxplot(aes(x = Species, y = Sepal.Length, fill = Species)) + 
+  ggthemes::theme_economist()
+```
+
+---
+
+### *The Wallstreet Journal* 风格图形
+
+```{r wsj style, fig.align='center', fig.width=5, fig.height=5}
+ggplot(iris) + 
+  geom_boxplot(aes(x = Species, y = Sepal.Length, fill = Species)) + 
+  ggthemes::theme_wsj()
+```
+---
+
+### Stata风格图形
+
+```{r stata style, fig.align='center', fig.width=5, fig.height=5}
+ggplot(iris) + 
+  geom_boxplot(aes(x = Species, y = Sepal.Length, fill = Species)) + 
+  ggthemes::theme_stata()
+```
+
+---
+
+### *Nature* 风格
+
+```{r ggsci, message=FALSE}
+library("ggsci")
+library("ggplot2")
+library("gridExtra")
+data("diamonds")
+p1 = ggplot(subset(diamonds, carat >= 2.2),
+       aes(x = table, y = price, colour = cut)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "loess", alpha = 0.05, size = 1, span = 1) +
+  theme_bw()
+p2 = ggplot(subset(diamonds, carat > 2.2 & depth > 55 & depth < 70),
+       aes(x = depth, fill = cut)) +
+  geom_histogram(colour = "black", binwidth = 1, position = "dodge") +
+  theme_bw()
+```
+
+```r
+p1_npg = p1 + scale_color_npg()
+p2_npg = p2 + scale_fill_npg()
+grid.arrange(p1_npg, p2_npg, ncol = 2)
+```
+
+---
+
+## Nature 风格
+
+```{r nature style, fig.align='center', fig.height=4, fig.width=10, echo=FALSE}
+p1_npg = p1 + scale_color_npg()
+p2_npg = p2 + scale_fill_npg()
+grid.arrange(p1_npg, p2_npg, ncol = 2)
+```
+
+---
+
+### *Lancet* 风格
+
+```{r lancent style, fig.align='center', fig.width=10, fig.height=5}
+p1_lancet = p1 + scale_color_lancet()
+p2_lancet = p2 + scale_fill_lancet()
+grid.arrange(p1_lancet, p2_lancet, ncol = 2)
+```
+---
+##  更多的R可视化图例
+
+- [RStudio图库](https://shiny.rstudio.com/gallery/)
+
+- [ggplot2图库](http://www.r-graph-gallery.com/portfolio/ggplot2-package/)
+
+- [ggthemes示例](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html)
+
+- [ggsci示例](https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html)
+
+---
+
+# 用于撰写学术报告
+
+- rmarkdown: html 格式报告
+- xaringan: html 格式幻灯片
+- rticles: AER 等经济学类顶级刊物LaTeX模板
+- stargazer: 生成LaTeX表格
+
+
+---
+
+# 常用资源
+
+- 计量经济学中的常用 R 包索引：<https://cran.r-project.org/web/views/Econometrics.html>
+
+
+- 用R做计量分析网站：<https://econometricswithr.wordpress.com/>
+
+- Using R for Introductory Econometrics(Wooldridge 计量经济学导论配套R语言网站): <http://www.urfie.net/>
+
+- bookdown官方网站：<https://bookdown.org/home/>
+
+
+- *R for Data Science* 在线版本：<http://r4ds.had.co.nz/>
+
+---
+
+class: center, middle
+
+# 谢谢观看！
+
+### 本幻灯片由[谢益辉](https://yihui.name/)的 R 包 [**xaringan**](https://github.com/yihui/xaringan) 生成
+
+### [吕小康  副教授](https://xkdog.github.io/)
+
+### 南开大学周恩来政府管理学院 
+
+### xkdog@126.com
+
+本报告原始文档可从以下链接下载：
+
+<https://github.com/xkdog/StatsUsingR>
+
+简略版可从以下网址在线观看（图片未能正确显示）：
+
+<http://rpubs.com/xkdog/r4eco2017>
