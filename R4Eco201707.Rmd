@@ -555,4 +555,5 @@ class: center, middle
 简略版可从以下网址在线观看（图片未能正确显示）：
 
 <https://github.com/xkdog/StatsUsingR/blob/master/R4Eco201707.Rmd>
+
 <http://rpubs.com/xkdog/r4eco2017>
