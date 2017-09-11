@@ -1,6 +1,20 @@
 
 # 课程说明
 
+本说明适用于南开大学周恩来政府管理学院2017-2018秋季学期的《R语言统计应用入门》本科课程。
+
+## 基本说明
+
+- 真正的零基础。当然，有基础更好。
+  - 无须R软件基础。
+  - 无须推论性统计学基础。
+- 主要内容
+  - 数据导入
+  - 数据管理
+  - 描述统计
+  - 基本绘图
+
+
 ## 软件准备
 
 仅限windows平台进行说明。Mac系统请参照此说明自行探索相关细节。
@@ -24,12 +38,11 @@
 
 ## 相关教材
 
-课程所有内容均可在网上找到免费公开的版本。为阅读方便，可推荐（但不强求）以下书目：
-
+课程所有内容均可在网上找到免费公开的版本。为阅读方便，推荐（但不强求）以下书目：
 
 - 卡巴科夫：[《R语言实战》](https://www.amazon.cn/gp/product/B01FSXCBMS/ref=pd_cp_14_1?ie=UTF8&psc=1&refRID=53CV03RWGW12KYZQYJJX)(2016版)。 
-- 吕小康：[《R语言统计学基础》](https://www.amazon.cn/%E6%95%B0%E9%87%8F%E7%BB%8F%E6%B5%8E%E5%AD%A6%E7%B3%BB%E5%88%97%E4%B8%9B%E4%B9%A6-R%E8%AF%AD%E8%A8%80%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E7%A1%80-%E5%90%95%E5%B0%8F%E5%BA%B7/dp/B06XGR6LJZ/ref=sr_1_1?s=books&ie=UTF8&qid=1505149742&sr=1-1&keywords=%E5%90%95%E5%B0%8F%E5%BA%B7)(2017)。
 - Hadley: [*R for Data Science*](http://r4ds.had.co.nz/)
+- 吕小康：[《R语言统计学基础》](https://www.amazon.cn/%E6%95%B0%E9%87%8F%E7%BB%8F%E6%B5%8E%E5%AD%A6%E7%B3%BB%E5%88%97%E4%B8%9B%E4%B9%A6-R%E8%AF%AD%E8%A8%80%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E7%A1%80-%E5%90%95%E5%B0%8F%E5%BA%B7/dp/B06XGR6LJZ/ref=sr_1_1?s=books&ie=UTF8&qid=1505149742&sr=1-1&keywords=%E5%90%95%E5%B0%8F%E5%BA%B7)(2017)。
 - [Bookdwon官网](https://bookdown.org/)上的若干公开电子书籍。
 
 ## 考核方式
