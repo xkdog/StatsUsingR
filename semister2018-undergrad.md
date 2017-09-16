@@ -20,7 +20,7 @@
 仅限windows平台进行说明。Mac系统请参照此说明自行探索相关细节。
 
 - 安装[R](https://www.r-project.org/)，安装[RStudio](https://www.rstudio.com/)，安装[Rtool](https://cran.r-project.org/bin/windows/Rtools/)。
-  - **所有软件请保证安装在系统盘，且所有安装路径无任何中文及特殊字符**。一般选择默认安装方式即可保证这一点。
+-  **所有软件请保证安装在系统盘，且所有安装路径无任何中文及特殊字符**。一般选择默认安装方式即可保证这一点。
 - 注册[GitHub](https://github.com/)账户，不妨顺便找到这个[链接](https://github.com/xkdog/StatsUsingR)。
 
 ## 语法准备
@@ -97,4 +97,4 @@ install.packages(“rmarkdown”)
  
 - 使用教育网邮箱注册GitHub账户，关注我指定的文件夹。
  
-- 自己了解一下R、Rstudio，Markdown与Rmardown的关系。可百度、Bing、Google。谷歌需要翻墙，可推荐蓝灯（lantern），每月500M免费流量，稳定性尚可。百度搜索lantern, github即可找到下载页面。Mac系统是否有支持我还不清楚。付费vpn有风险，钱还没用完可能vpn就挂了，除非确有需求，否则暂不推荐。
+- 自己了解一下R、Rstudio，Markdown与Rmardown的关系。可百度、Bing、Google。谷歌需要翻墙，可推荐[蓝灯（lantern）](https://github.com/getlantern/lantern/releases/tag/latest)，每月500M免费流量，稳定性尚可。付费vpn有风险，钱还没用完可能vpn就挂了，除非确有需求，否则暂不推荐。
