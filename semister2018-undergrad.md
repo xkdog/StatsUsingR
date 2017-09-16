@@ -20,7 +20,7 @@
 仅限windows平台进行说明。Mac系统请参照此说明自行探索相关细节。
 
 - 安装[R](https://www.r-project.org/)，安装[RStudio](https://www.rstudio.com/)，安装[Rtool](https://cran.r-project.org/bin/windows/Rtools/)。
-    - **所有软件请保证安装在系统盘，且所有安装路径无任何中文及特殊字符**。一般选择默认安装方式即可保证这一点。
+    - **所有软件请保证安装在系统盘，且所有安装路径无任何中文及特殊字符**。一般选择默认安装方式即可保证这一点。
 - 注册[GitHub](https://github.com/)账户，不妨顺便找到这个[链接](https://github.com/xkdog/StatsUsingR)。
 
 ## 语法准备
