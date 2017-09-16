@@ -89,12 +89,18 @@ https://github.com/xkdog/PCI/blob/master/README.md
  
 - 安装R、Rstudio，Windows平台同学安装Rtools。一律安装在C盘（系统盘）。
  
-- 联网状态下，打开R，尝试如下命令：
- 
-install.packages(“rmarkdown”)
+- 联网状态下，打开R，尝试如下命令：`install.packages(“rmarkdown”)`。
  
 - 打开Rstudio，尝试新建一个Rmarkdown。
  
 - 使用教育网邮箱注册GitHub账户，关注我指定的文件夹。
  
 - 自己了解一下R、Rstudio，Markdown与Rmardown的关系。可百度、Bing、Google。谷歌需要翻墙，可推荐[蓝灯（lantern）](https://github.com/getlantern/lantern/releases/tag/latest)，每月500M免费流量，稳定性尚可。付费vpn有风险，钱还没用完可能vpn就挂了，除非确有需求，否则暂不推荐。
+
+## 本周录屏
+
+请及时查看群内链接。录屏暂不主动公开，因为课堂上的某些“只言片语”显然不足为外人道也。
+
+
+
+
