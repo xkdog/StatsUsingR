@@ -32,7 +32,9 @@ library(tidyverse)
 - R 中的数据结构
 - R 中的数据导入
 - R 的基础操作
-- 利用 **dplyr** 包 
+- 利用 **dplyr** 包进行数据管理
+- 利用 **stringr** 包进行文本数据分析
+
 
 
 
