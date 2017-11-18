@@ -11,9 +11,10 @@
 
 软件及相关数据见以下链接：
 
-链接：<http://pan.baidu.com/s/1gf7xsll>
+链接：<http://pan.baidu.com/s/1sl2ZqB7>
 
-密码：u7f8
+密码：ctyr
+
 
 ## 安装 R 包
 
