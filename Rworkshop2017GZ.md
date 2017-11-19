@@ -11,8 +11,11 @@
 
 软件及相关数据见以下链接：
 
-链接：<http://pan.baidu.com/s/1geV3FcJ> 
+链接：<http://pan.baidu.com/s/1geV3FcJ>
+ 
 密码：4i7p
+
+录屏已上传。
 
 ## 安装 R 包
 
@@ -62,6 +65,9 @@ library(tidyverse)
 
 
 # 相关展示代码
+
+录屏已上传。将下列代码，拷至 R Script 或 RStudio 中，设定相关的工作目录后，即可察看效果。
+
 
 ```
 # 总体说明：所有文件默认放置于当前工作夹中
