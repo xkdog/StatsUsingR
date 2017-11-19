@@ -11,10 +11,8 @@
 
 软件及相关数据见以下链接：
 
-链接：<http://pan.baidu.com/s/1sl2ZqB7>
-
-密码：ctyr
-
+链接：<http://pan.baidu.com/s/1geV3FcJ> 
+密码：4i7p
 
 ## 安装 R 包
 
@@ -63,8 +61,97 @@ library(tidyverse)
 - [Bookdwon官网](https://bookdown.org/)上的若干公开电子书籍。
 
 
+# 相关展示代码
+
+```
+# 总体说明：所有文件默认放置于当前工作夹中
+
+# setwd() # 设定工作目录，例如setwd("C:\\xkdog")或setwd("C:/xkdog")
+# getwd() # 查看当前工作目录
 
 
+## Topic 1：修改文件名
+
+# 如何修改文件名：单个文件夹修改
+
+a <- list.files()  # 列示文件夹内的文件
+b <- paste(2016, a, sep = "-") # 拼接向量 2016 与 a 
+file.rename(a, b) # 重命名文件
+
+
+# 如何修改文件名：多个文件夹修改
+
+# 视自身文件夹路径而定，注意文件夹宜全为英文
+
+
+x <- list.files() # 列示文件夹内的文件
+y <- paste(getwd(), x, sep = "") # 拼接当前工作路径与 x 
+rename = function(a, b) 
+{
+  for (i in 1:length(b))
+  {
+    setwd(b[i])
+    c <- list.files()
+    d <- paste(a[i], c, sep = "-")
+    file.rename(c, d)
+    print(list.files())
+  }
+}  # 定义重命名函数
+rename(x, y) # 利用重命名函数进行重命名
+
+
+# Topic 2：计算多道选择题的错误率
+
+library(dplyr) # 载入 dplyr 包，以便进行数据框操纵
+pci_rate_clean <- read.csv("pci_rate_clean.csv") # 读入数据
+pci_rate_clean_TF <- pci_rate_clean == 1 # 取值为1定义为TRUE，否则为FALSE
+TF <- function(x) { sum(x) / length(x) } # 定义正确率函数
+error_rate_p <- apply(pci_rate_clean_TF, 1, TF) # 求个体正确率，长度同个体数
+error_rate_q <- apply(pci_rate_clean_TF, 2, TF) # 求每道题的正确率，长度同题目数
+result <- bind_cols(pci_rate_clean, 
+                    error_rate_p = error_rate_p) # 把个体正确率并入数据框
+TF(result$error_rate_p > 0) # 计算至少做错一道误的个体占总体的比率
+
+# Topic 3：dplyr 与 stringr 文本数据处理
+
+library(readxl) # 载入 readxl 包，以便读入 Excel 文件
+library(dplyr) # 载入 dplyr 包，以便进行数据框操纵
+library(stringr) # 载入 stringr 包，以便进行字符串操纵
+x <- read_excel("PDSurveyBasic.xlsx") # 读入数据
+mins <-
+  str_extract(x$time2, "[:digit:]+") %>% as.numeric # 提取纯数字文本，并转为数值型向量
+x_new <- mutate(x, mins = round(mins / 60)) %>%
+  filter(mins <= 60,
+         mins >= 10,
+         relationship > 1,
+         student > 1) # 生成新变量mins，并将其单位转为分；同时，根据提前设置的规则选定有效被试
+round(nrow(x_new) / nrow(x), 2) # 计算有效样本量，并保留两位小数
+
+
+## 以下用于提取 IP 地址呈现的地理位置信息
+
+ip.location <-
+  str_extract(x_new$ip, "(?<=\\().*(?=\\))") %>%
+  str_split("-", n = 2, simplify = TRUE) %>%
+  as_tibble %>% 
+  transmute(province = .[[1]], city = .[[2]])
+  
+
+## 修改数据框，使之更为清洁
+
+clean.data <-
+  select(x_new,-ip) %>% 
+  bind_cols(ip.location) %>%
+  as_tibble
+
+## 按先省份、再城市的方式，以各城市内的有效被试人数进行降序列表
+
+y <-
+  group_by(ip.location, province, city) %>%
+  count() %>%
+  arrange(desc(n))
+y
+```
 
 
 
