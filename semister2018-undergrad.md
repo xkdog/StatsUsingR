@@ -1,18 +1,25 @@
 
-# 第一周（9月12日）：课程说明
+# 第一周（9月18日）：课程说明
 
-本说明适用于南开大学周恩来政府管理学院2017-2018秋季学期的《R语言统计应用入门》本科课程。课程需自备电脑。
+本说明适用于南开大学周恩来政府管理学院2018-2019秋季学期的《R语言统计应用入门》本科课程。课程需自备电脑。
 
 ## 基本说明
 
 - 真正的零基础。当然，有基础更好。
   - 无须R软件基础。
-  - 无须推论性统计学基础。不过多涉及，但会介绍*t*检验、方差分析、线性回归的基本命令操作与结果解读。
+  - 无须推论性统计学基础。不过多涉及，但后期可能会简单介绍*t*检验、方差分析、线性回归的基本命令操作与结果解读。
 - 主要内容
   - 数据导入
   - 数据管理
   - 描述统计
   - 基本绘图
+  - 网页爬虫
+  - 文本数据清洗
+  - 正则表达式基础
+
+更详细内容，请参见此[目录](https://github.com/xkdog/DAUR)。里面包含了本门课程的基本内容和代码，可提前阅读和自行学习。
+
+
 
 
 ## 软件准备
@@ -42,7 +49,7 @@
 课程所有内容均可在网上找到免费公开的版本。为阅读方便，推荐（但不强求）以下书目：
 
 - 卡巴科夫：[《R语言实战》](https://www.amazon.cn/gp/product/B01FSXCBMS/ref=pd_cp_14_1?ie=UTF8&psc=1&refRID=53CV03RWGW12KYZQYJJX)(2016版)。 
-- Hadley: [*R for Data Science*](http://r4ds.had.co.nz/)
+- Hadley: [*R for Data Science*](http://r4ds.had.co.nz/)，已有中文版《R数据科学》。
 - 吕小康：[《R语言统计学基础》](https://www.amazon.cn/%E6%95%B0%E9%87%8F%E7%BB%8F%E6%B5%8E%E5%AD%A6%E7%B3%BB%E5%88%97%E4%B8%9B%E4%B9%A6-R%E8%AF%AD%E8%A8%80%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E7%A1%80-%E5%90%95%E5%B0%8F%E5%BA%B7/dp/B06XGR6LJZ/ref=sr_1_1?s=books&ie=UTF8&qid=1505149742&sr=1-1&keywords=%E5%90%95%E5%B0%8F%E5%BA%B7)(2017)。
 - Hadley: 《高级R语言编程指南》，有[英文版](http://adv-r.had.co.nz/)。阅读1-5章即可。
 - [Bookdwon官网](https://bookdown.org/)上的若干公开电子书籍。
@@ -58,7 +65,7 @@
 - 协助完善教学资料与练习题。
 - 其他，待丰富。
 
-最后集中到一个大作业中，在2018年1月8日晚上6：00之前提交到本人学院二楼的邮箱。
+最后集中到一个大作业中，在2019年1月8日晚上6：00之前提交到本人学院二楼的邮箱。
 
 ### 期末作业（60%）
 
@@ -88,15 +95,15 @@ https://github.com/xkdog/PCI/blob/master/README.md
  
 - 从学校的软件正版化平台安装Office 2016版本。
  
-- 安装R、Rstudio，Windows平台同学安装Rtools。一律安装在C盘（系统盘）。
- 
+- 安装R、Rstudio，Windows平台同学安装Rtools。一律安装在C盘（系统盘）。操作
+ 系统账户名称不能出现中文或特殊字符，一律使用英文（或不设账户名称）。
 - 联网状态下，打开R，尝试如下命令：`install.packages(“rmarkdown”)`。
  
 - 打开Rstudio，尝试新建一个Rmarkdown。
  
 - 使用教育网邮箱注册GitHub账户，关注我指定的文件夹。
  
-- 自己了解一下R、Rstudio，Markdown与Rmardown的关系。可百度、Bing、Google。谷歌需要翻墙，可推荐[蓝灯（lantern）](https://github.com/getlantern/lantern/releases/tag/latest)，每月500M免费流量，稳定性尚可。付费vpn有风险，钱还没用完可能vpn就挂了，除非确有需求，否则暂不推荐。
+- 自己了解一下R、Rstudio，Markdown与Rmardown的关系。可百度、Bing、Google。谷歌需要翻墙。
 
 ## 本周录屏
 
